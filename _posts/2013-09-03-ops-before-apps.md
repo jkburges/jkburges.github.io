@@ -9,14 +9,15 @@ We've all spent plenty of time chasing down issues related to non-standard envir
 
 # Ops before apps?
 
-Through the magic of chef, berkshelf, vagrant and jenkins, I'm going to present to you a method for minimising the types of 'environmental' problems that you might normally run in to. I say that when starting a new project, 'operations' code should be written before any application code (importantly, I include in 'operations' configuration of the continuous integration server).
+Through the magic of chef, berkshelf, vagrant and jenkins, I'm going to present to you a setup for minimising the types of 'environmental' problems that you might normally run in to. I say that when starting a new project, 'operations' code should be written before *any* application code (importantly, I include in 'operations' the configuration of the continuous integration server).
 
 Why?  Well, because:
 
-1.    operations code is going to have to be written eventually anyway;
-2.    continuous integration for the project will have to be configured eventually;
-3.    we get the benefits of consistent and standardised environments for development, testing and production;
-4.    all of the above are much easier to get going *early* in a project's life.
+1. operations code is going to have to be written eventually anyway;
+2. continuous integration for the project will have to be configured eventually; and
+3. we get the benefits of consistent and standardised environments for development, testing and production
+
+All of the above are much easier to get going *early* in a project's life.
 
 # Getting Started
 
