@@ -1,6 +1,7 @@
 ---
 layout: post
 title: Ops Before Apps
+comments: true
 ---
 
 # Works for me!
