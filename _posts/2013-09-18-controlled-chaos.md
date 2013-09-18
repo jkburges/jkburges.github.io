@@ -77,11 +77,18 @@ $ git status
 #	great_new_table.changelog.xml
 ```
 
-What we have here are a number of [liquibase](http://www.liquibase.org/) changeset files - `changelog.xml` being the main one and `great_new_table.changelog.xml` being the one just generated and referenced from the former.
+Examining the contents of `great_new_table.changelog.xml`, we see that our changes made in PgAdmin have been turned in to "code":
 
-Without going in to details about liquibase, we can see that our changes (made through our favourite tool) have been transformed in to an executable format, belonging (almost) to a git repository.
+```
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+    <changeSet author="vagrant (generated)" id="1379486681518-1">
+        <dropTable tableName="great_new_table"/>
+    </changeSet>
+</databaseChangeLog>
+```
 
-At this point, what happens depends on your organisation's workflow.  At [eMII](http://imos.org.au/emii.html), we would push the changes to a git branch, submit a pull request, have it reviewed, before being merged back in to `master` and finally deployed to production.
+The great thing about this is that it allows us to now manage this like any other source code: version control it, have it reviewed by others, but best of all, apply it to a production DB in a controlled (and repeatable) fashion.
 
 # Summary
 
