@@ -8,26 +8,24 @@ comments: true
 
 We have a situation [here](http://imos.org.au/emii.html) where we would like to allow those with the necessary skills, but who may not be full-blown developers, to experiment with and make changes to our (PostgreSQL) database.
 
-In the past, this has been done by having a shared "development" DB, with any changes that have been applied there manually "migrated" to the production DB in a very ad-hoc manner.
+In the past, this has been done by having a shared "development" DB, with any changes made there manually "migrated" to the production DB in a very ad-hoc manner.
 
-This is problematic for a couple of reasons:
-
-* because of the freedom allowed on the development DB, and because of its long-lived nature, others have come to rely on it for getting their work done - in essence it is now development *and* production;
-* changes to the true production server are unmanaged, and hence, its current state is fairly chaotic.
+This is problematic for a few reasons, but mainly because changes to the production server are unmanaged, and hence, its current state is fairly chaotic.
 
 
 # Control
 
-Ideally, we want people to have the ability to do their (development) work *using the tools that they are already familiar with*, but provide an easy and well managed path to get their changes from development to production. 
+Ideally, we want people to have the ability to do their (development) work *using the tools that they are already familiar with*, but at the same time, provide an easy and well managed path to get their changes from development to production.
 
 
 # Controlled Chaos
 
-I am going to propose a workflow which I believe can gives us *control*, but perhaps still maintaining a (good) level of *chaos!*
+I am going to propose a workflow which I believe can give us *control* while still maintaining a (good) level of *chaos!*
 
 You will need:
 
 * a unixy OS, e.g. linux or OS X
+* [virtualbox](https://www.virtualbox.org/)
 * [vagrant](http://www.vagrantup.com/)
 * [vagrant-berkshelf plugin](https://github.com/riotgames/vagrant-berkshelf)
 * [git](http://git-scm.com/)
@@ -55,7 +53,7 @@ The code (and the VM) is all there for you to take a look at if you're intereste
 
 # Example Workflow
 
-Let's say one of my colleagues would like to add a new table to the database, using his or her tool of choice, [pgAdmin](http://www.pgadmin.org/).  Here's how to do it.
+Let's say one of my colleagues would like to add a new table to the database, using his or her tool of choice, [pgAdmin](http://www.pgadmin.org/).  Here's how to do it:
 
 
 1. Create a connection to the database residing within the VM (noting that the port is **15432** and password is **postgres**):<br/>
@@ -66,12 +64,12 @@ Let's say one of my colleagues would like to add a new table to the database, us
 3. Run the diff script:<br/>
 ```$ bin/diffChangeLog.sh great_new_table```
 
-The way I've set this up is to have a [*separate* git project](https://github.com/jkburges/emii_db) for the DB migrations (to keep them separate from all the vagrant/environment infrastructure).  However, it lives within our current hierarchy, and we can go there to see what changes have been made to *that* repo:
+The way I've set this up is to have a [*different* git project](https://github.com/jkburges/emii_db) for the DB migrations (to keep them separate from all the vagrant/environment infrastructure).  However, it lives within our current hierarchy, and we can go there to see what changes have been made to *that* repo:
 
 ```
 $ cd workspace/emii_db/
 $ git status
-# 
+#
 #	modified:   changelog.xml
 #
 # Untracked files:
@@ -81,12 +79,12 @@ $ git status
 
 What we have here are a number of [liquibase](http://www.liquibase.org/) changeset files - `changelog.xml` being the main one and `great_new_table.changelog.xml` being the one just generated and referenced from the former.
 
-Without going in to details about liquibase, we can see that our changes (made through our favourite tool) have been transformed in to an executable format, belonging (almost) to a git repository.  
+Without going in to details about liquibase, we can see that our changes (made through our favourite tool) have been transformed in to an executable format, belonging (almost) to a git repository.
 
 At this point, what happens depends on your organisation's workflow.  At [eMII](http://imos.org.au/emii.html), we would push the changes to a git branch, submit a pull request, have it reviewed, before being merged back in to `master` and finally deployed to production.
 
 # Summary
 
-I really haven't gone in to *too* much detail about how this is all actually implemented.  Really what I want people to take out of this is that it's possible to have a process which allows people (who are not necessarily developers by trade) to get their changes in to a production database, but in a controlled manner.
+I really haven't gone in to much detail about how this is all actually implemented.  Really what I want people to take out of this post is that it's possible to have a process which allows people (who are not necessarily developers by trade) to get their changes in to a production database, but in a controlled manner.
 
-Comments, as well as pull requests to the associate github project, are welcome!
+Comments, as well as pull requests to the associated github project, are welcome!
