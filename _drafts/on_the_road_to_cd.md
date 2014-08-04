@@ -10,9 +10,9 @@ Hopefully summarising what we've done already and how it has benefited us will h
 
 
 # Why
-We all know the benefits of CD (right?), but how do they specifically apply to our organisation?  Here are a few examples:
+There's plenty written on the benefits of CD (right?), but how do they specifically apply to our organisation?  Here are a few examples:
 
-* currently, it often takes several weeks to realise the value of an idea into deployed, production software;
+* currently, it often takes several weeks to realise the value of an idea into deployed, production software and often there's confusion over whether a particular feature is "done";
 * a lack of time to spend on "innovating" (i.e. implementing those features which people *think* would be a good idea but there never seems to be time for); and
 * it's common to have to manage backporting of critical bug fixes to already deployed versions (instead of just fixing on master and deploying)
 
@@ -25,7 +25,7 @@ We strive to keep PRs small, so that people are having their code merged in to m
 ## DevOps Culture
 In the last year or so, we've completed a migration to managing our infrastructure with [chef]().  We took this opportunity to get all of the developers on board with tools such as [vagrant](), so that we now have developers using [production-like environments]() to do much of their work.
 
-The upshot of this is that it has become trivial to promote applications from development right through to production, with relatively few suprises, and there is now really good collaboration between developers and operations to keep the infrastructure code working well for all.
+The upshot of this is that it releases are low ceremony events, with it being trivial to promote applications from development right through to production, with relatively few suprises.  There is now really good collaboration between developers and operations to keep the infrastructure code working well for all.
 
 ## Version Control Everything
 Apart from putting all of our source code under version control, we've started to version control some other things in the last couple of years.
